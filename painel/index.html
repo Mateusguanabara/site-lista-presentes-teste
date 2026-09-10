@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Painel | Lara & João Gabriel
+    </title>
+
+    <link rel="stylesheet" href="painel.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
+
+    <header class="painel-header">
+
+        <div class="container">
+
+            <div>
+
+                <span class="painel-detail">
+                    Lista de Presentes
+                </span>
+
+                <h1>
+                    Lara & João Gabriel
+                </h1>
+
+                <p>
+                    Painel de controle das reservas
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             RESUMO
+        ========================== -->
+
+        <section class="resumo">
+
+            <div class="resumo-card">
+
+                <span>
+                    Total de presentes
+                </span>
+
+                <strong id="total-presentes">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="resumo-card">
+
+                <span>
+                    Reservados
+                </span>
+
+                <strong id="total-reservados">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="resumo-card">
+
+                <span>
+                    Disponíveis
+                </span>
+
+                <strong id="total-disponiveis">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRESENTES RESERVADOS
+        ========================== -->
+
+        <section class="reservas-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="painel-detail">
+                        Presentes escolhidos
+                    </span>
+
+                    <h2>
+                        Presentes reservados
+                    </h2>
+
+                    <p>
+                        Veja os presentes escolhidos pelos convidados
+                        e quem realizou cada reserva.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="reservas-lista" id="reservas-lista">
+
+                <p class="carregando">
+                    Carregando reservas...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRESENTES CADASTRADOS
+        ========================== -->
+
+        <section class="presentes-admin">
+
+            <div class="presentes-admin-header">
+
+                <div>
+
+                    <span class="painel-detail">
+                        Catálogo
+                    </span>
+
+                    <h3>
+                        Presentes cadastrados
+                    </h3>
+
+                    <p>
+                        Visualize e gerencie os presentes
+                        disponíveis na lista.
+                    </p>
+
+                </div>
+
+
+                <span id="quantidade-cadastrados">
+                    0 presentes
+                </span>
+
+            </div>
+
+
+            <div class="presentes-admin-lista" id="presentes-admin-lista">
+
+                <p class="carregando">
+                    Carregando presentes...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CADASTRAR / EDITAR
+        ========================== -->
+
+        <section class="gerenciar-presentes">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="painel-detail">
+                        Administração
+                    </span>
+
+                    <h2>
+                        Cadastrar presente
+                    </h2>
+
+                    <p>
+                        Adicione um novo presente à lista
+                        ou edite um presente já cadastrado.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="form-presente-admin" class="form-presente-admin">
+
+
+                <!-- NOME -->
+
+                <div class="campo-admin">
+
+                    <label for="presente-nome">
+                        Nome do presente
+                    </label>
+
+                    <input type="text" id="presente-nome" placeholder="Ex: Air Fryer" required>
+
+                </div>
+
+
+                <!-- DESCRIÇÃO -->
+
+                <div class="campo-admin">
+
+                    <label for="presente-descricao">
+                        Descrição
+                    </label>
+
+                    <input type="text" id="presente-descricao" placeholder="Ex: Air Fryer 5 litros" required>
+
+                </div>
+
+
+                <!-- IMAGEM -->
+
+                <div class="campo-admin">
+
+                    <label for="presente-imagem">
+                        Imagem do presente
+                    </label>
+
+                    <input type="text" id="presente-imagem" placeholder="Ex: imagens-presentes/air-fryer.jpg" required>
+
+                </div>
+
+
+                <!-- BOTÕES -->
+
+                <div class="acoes-form-admin">
+
+                    <button type="button" id="cancelar-edicao" class="btn-cancelar-edicao">
+                        Cancelar edição
+                    </button>
+
+
+                    <button type="submit" class="btn-cadastrar-presente">
+                        Cadastrar presente
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <p>
+            Lara & João Gabriel • 06.02.2027
+        </p>
+
+    </footer>
+
+    <!-- MODAL LIBERAR PRESENTE -->
+    <div id="modal-liberar" class="modal-confirmacao">
+
+        <div class="modal-confirmacao-box">
+
+            <span class="modal-detalhe">
+                CONFIRMAÇÃO
+            </span>
+
+            <h3>
+                Liberar presente?
+            </h3>
+
+            <p>
+                Este presente voltará a ficar disponível
+                para os convidados.
+            </p>
+
+            <div class="modal-confirmacao-acoes">
+
+                <button type="button" id="cancelar-liberacao" class="btn-modal-cancelar">
+                    Cancelar
+                </button>
+
+                <button type="button" id="confirmar-liberacao" class="btn-modal-confirmar">
+                    Liberar presente
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+
+    <script type="module" src="painel.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,842 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #faf9f6;
+    color: #3b3834;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================
+   TOPO / HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background:
+        linear-gradient(rgba(250, 249, 246, 0.94),
+            rgba(250, 249, 246, 0.94));
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.hero-subtitle {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+
+    color: #a78b5b;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 72px;
+    font-weight: 500;
+
+    line-height: 1;
+
+    color: #a78b5b;
+
+    margin-bottom: 20px;
+}
+
+.hero-date {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 22px;
+
+    letter-spacing: 7px;
+
+    color: #555;
+
+    margin-bottom: 40px;
+}
+
+.hero-verse {
+    max-width: 580px;
+
+    margin: 0 auto 8px;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 21px;
+    font-style: italic;
+
+    color: #555;
+}
+
+.hero-reference {
+    display: block;
+
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    color: #a78b5b;
+
+    margin-bottom: 45px;
+}
+
+.hero-button {
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: #a78b5b;
+    color: white;
+
+    padding: 15px 32px;
+
+    border-radius: 3px;
+
+    text-transform: uppercase;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    letter-spacing: 2px;
+
+    transition: 0.3s;
+}
+
+.hero-button:hover {
+    background: #8d7348;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   INTRODUÇÃO
+========================= */
+
+.intro {
+    padding: 100px 20px;
+
+    text-align: center;
+
+    background: white;
+}
+
+.intro .container {
+    max-width: 720px;
+}
+
+.intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 48px;
+    font-weight: 500;
+
+    color: #a78b5b;
+
+    margin-bottom: 25px;
+}
+
+.intro p {
+    font-size: 14px;
+
+    color: #666;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   LISTA DE PRESENTES
+========================= */
+
+.presentes-section {
+    padding: 100px 20px;
+
+    background: #f6f3ed;
+}
+
+.section-header {
+    text-align: center;
+
+    margin-bottom: 60px;
+}
+
+.section-detail {
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 4px;
+
+    color: #a78b5b;
+}
+
+.section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 50px;
+    font-weight: 500;
+
+    margin: 8px 0;
+}
+
+.section-header p {
+    font-size: 14px;
+
+    color: #777;
+}
+
+
+/* =========================
+   GRID DOS PRESENTES
+========================= */
+
+.presentes-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 30px;
+}
+
+
+/* =========================
+   CARD DO PRESENTE
+========================= */
+
+.presente-card {
+    background: white;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.06);
+
+    transition: 0.3s;
+}
+
+.presente-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.10);
+}
+
+
+/* IMAGEM */
+
+.presente-imagem {
+    height: 260px;
+
+    overflow: hidden;
+
+    background: #eee;
+}
+
+.presente-imagem img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 0.4s;
+}
+
+.presente-card:hover img {
+    transform: scale(1.04);
+}
+
+
+/* INFORMAÇÕES */
+
+.presente-info {
+    padding: 25px;
+
+    text-align: center;
+}
+
+.presente-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 27px;
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.presente-info p {
+    font-size: 13px;
+
+    color: #777;
+
+    min-height: 42px;
+
+    margin-bottom: 20px;
+}
+
+
+/* BOTÃO */
+
+.btn-escolher {
+    width: 100%;
+
+    border: none;
+
+    background: #a78b5b;
+
+    color: white;
+
+    padding: 13px;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    font-size: 11px;
+
+    transition: 0.3s;
+}
+
+.btn-escolher:hover {
+    background: #8d7348;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+}
+
+.modal-overlay.ativo {
+    display: flex;
+}
+
+.modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 480px;
+
+    background: white;
+
+    padding: 45px 35px;
+
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 18px;
+
+    border: none;
+    background: none;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #777;
+}
+
+.modal-detail {
+    color: #a78b5b;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    font-size: 11px;
+
+    margin-bottom: 10px;
+}
+
+.modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+#presente-selecionado {
+    color: #a78b5b;
+
+    margin-bottom: 25px;
+
+    font-weight: 500;
+}
+
+
+/* FORMULÁRIO */
+
+#form-presente {
+    text-align: left;
+}
+
+#form-presente label {
+    display: block;
+
+    font-size: 12px;
+
+    margin: 15px 0 5px;
+}
+
+#form-presente input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ddd;
+
+    outline: none;
+
+    font-family: inherit;
+}
+
+#form-presente input:focus {
+    border-color: #a78b5b;
+}
+
+#form-presente button {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    background: #a78b5b;
+
+    color: white;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer {
+    text-align: center;
+
+    padding: 70px 20px;
+
+    background: white;
+}
+
+footer p {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 20px;
+
+    margin-bottom: 15px;
+}
+
+footer strong {
+    display: block;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 27px;
+    font-weight: 500;
+
+    color: #a78b5b;
+}
+
+footer span {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+}
+
+
+/* =========================
+   CELULAR / TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .presentes-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .hero h1 {
+        font-size: 55px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .hero {
+        min-height: 90vh;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .hero-date {
+        font-size: 17px;
+        letter-spacing: 4px;
+    }
+
+    .hero-verse {
+        font-size: 18px;
+    }
+
+    .intro {
+        padding: 70px 20px;
+    }
+
+    .presentes-section {
+        padding: 70px 15px;
+    }
+
+    .presentes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header h2 {
+        font-size: 40px;
+    }
+
+    .presente-imagem {
+        height: 280px;
+    }
+}
+
+/* =========================
+   PRESENTE RESERVADO
+========================= */
+
+.presente-reservado {
+    opacity: 0.75;
+}
+
+.status-reservado {
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.presente-reservado .btn-escolher {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* =========================
+   MODAL DE SUCESSO
+========================= */
+
+.modal-sucesso {
+    text-align: center;
+    max-width: 480px;
+    padding: 45px 40px;
+}
+
+.modal-sucesso .modal-detail {
+    margin-bottom: 15px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.sucesso-icone {
+    font-size: 28px;
+    color: #b4935f;
+    margin-bottom: 15px;
+}
+
+.modal-sucesso h2 {
+    margin: 0 0 18px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.modal-sucesso>p:not(.modal-detail) {
+    line-height: 1.6;
+}
+
+.sucesso-mensagem {
+    margin-top: 10px;
+}
+
+#fechar-sucesso {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px 25px;
+
+    border: none;
+    background: #b4935f;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#fechar-sucesso:hover {
+    background: #967747;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+
+    .modal-sucesso {
+        width: calc(100% - 30px);
+        padding: 35px 22px;
+    }
+
+    .modal-sucesso h2 {
+        font-size: 25px;
+    }
+
+}
+
+/* =========================
+   SEÇÃO PIX
+========================= */
+
+.pix-section {
+    padding: 100px 20px;
+    background: #ffffff;
+}
+
+.pix-section .section-header {
+    max-width: 700px;
+    margin: 0 auto 45px;
+}
+
+.pix-card {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 45px 40px;
+
+    background: #faf9f6;
+    border: 1px solid #eee8dd;
+    border-radius: 8px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+.pix-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border: 1px solid #a78b5b;
+    border-radius: 50%;
+
+    color: #a78b5b;
+    font-size: 20px;
+}
+
+.pix-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+
+.pix-texto {
+    max-width: 400px;
+    margin: 0 auto 30px;
+
+    font-size: 13px;
+    line-height: 1.7;
+    color: #777;
+}
+
+.pix-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    color: #a78b5b;
+}
+
+.pix-chave {
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 27px;
+    font-weight: 600;
+
+    color: #3b3834;
+}
+
+#copiar-pix {
+    width: 100%;
+
+    padding: 14px 25px;
+
+    border: none;
+    border-radius: 3px;
+
+    background: #a78b5b;
+    color: #ffffff;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#copiar-pix:hover {
+    background: #8d7348;
+    transform: translateY(-2px);
+}
+
+.pix-feedback {
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #8d7348;
+}
+
+
+/* =========================
+   PIX - CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    .pix-section {
+        padding: 70px 15px;
+    }
+
+    .pix-section .section-header {
+        margin-bottom: 35px;
+    }
+
+    .pix-card {
+        padding: 35px 22px;
+    }
+
+    .pix-card h3 {
+        font-size: 28px;
+    }
+
+    .pix-chave {
+        font-size: 24px;
+    }
+
+}
+
+.pix-titular {
+    margin: -12px 0 25px;
+    font-size: 13px;
+    color: #666;
+}
+
+.pix-titular span {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #a78b5b;
+}
+

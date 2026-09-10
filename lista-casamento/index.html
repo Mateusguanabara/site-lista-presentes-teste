@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lista de Presentes | Lara & João Gabriel</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-subtitle">
+                Lista de Presentes
+            </p>
+
+            <h1>
+                Lara & João Gabriel
+            </h1>
+
+            <p class="hero-date">
+                06 • 02 • 2027
+            </p>
+
+            <p class="hero-verse">
+                “Assim, eles já não são dois, mas uma só carne.
+                Portanto, o que Deus uniu, ninguém separe.”
+            </p>
+
+            <span class="hero-reference">
+                Mateus 19:6
+            </span>
+
+            <a href="#presentes" class="hero-button">
+                Ver lista de presentes
+            </a>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="intro">
+
+            <div class="container">
+
+                <h2>Nossa Lista</h2>
+
+                <p>
+                    Ficamos muito felizes em compartilhar esse momento
+                    tão especial com você.
+                </p>
+
+                <p>
+                    Escolha um presente da nossa lista e faça parte
+                    dessa nova etapa das nossas vidas.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section id="presentes" class="presentes-section">
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-detail">
+                        Com carinho
+                    </span>
+
+                    <h2>
+                        Lista de Presentes
+                    </h2>
+
+                    <p>
+                        Escolha um presente para Lara & João Gabriel.
+                    </p>
+
+                </div>
+
+
+                <div class="presentes-grid" id="presentes-grid">
+                    <!-- Os presentes serão carregados pelo Firebase -->
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="pix-section">
+            <div class="container">
+
+                <div class="section-header">
+                    <span class="section-detail">
+                        Uma outra forma de presentear
+                    </span>
+
+                    <h2>
+                        Prefere contribuir via PIX?
+                    </h2>
+
+                    <p>
+                        Se você ficou em dúvida sobre qual presente escolher,
+                        também pode contribuir com qualquer valor para esse
+                        novo capítulo das nossas vidas.
+                    </p>
+                </div>
+
+                <div class="pix-card">
+
+                    <div class="pix-icon">
+                        ♥
+                    </div>
+
+                    <h3>
+                        Contribua via PIX
+                    </h3>
+
+                    <p class="pix-texto">
+                        Escolha o valor que desejar e envie diretamente
+                        para Lara & João Gabriel.
+                    </p>
+
+                    <span class="pix-label">
+                        Chave PIX
+                    </span>
+
+                    <strong class="pix-chave">
+                        (38) 99102-3782
+                    </strong>
+
+                    <p class="pix-titular">
+                        <span>Titular</span>
+                        João Gabriel Chaves Almeida
+                    </p>
+
+                    <button type="button" id="copiar-pix" data-pix="38991023782">
+                        Copiar chave PIX
+                    </button>
+
+                    <p class="pix-feedback" id="pix-feedback"></p>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <div class="modal-overlay" id="modal-presente">
+        <div class="modal">
+            <button class="modal-close" id="fechar-modal">
+                ×
+            </button>
+
+            <p class="modal-detail">
+                Lara & João Gabriel
+            </p>
+
+            <h2>
+                Você escolheu este presente ❤️
+            </h2>
+
+            <p id="presente-selecionado">
+                Jogo de Panelas
+            </p>
+
+            <form id="form-presente">
+
+                <label for="nome-convidado">
+                    Seu nome
+                </label>
+
+                <input type="text" id="nome-convidado" placeholder="Digite seu nome" required>
+
+                <label for="telefone-convidado">
+                    Telefone
+                </label>
+
+                <input type="tel" id="telefone-convidado" placeholder="(38) 99999-9999">
+
+                <button type="submit">
+                    Confirmar presente
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-sucesso">
+        <div class="modal modal-sucesso">
+            <p class="modal-detail">
+                Lara & João Gabriel
+            </p>
+
+            <div class="sucesso-icone">
+                ♥
+            </div>
+
+            <h2>
+                Presente reservado com sucesso!
+            </h2>
+
+            <p>
+                Obrigado por fazer parte desse momento tão especial.
+            </p>
+
+            <p class="sucesso-mensagem">
+                Lara & João Gabriel agradecem pelo carinho!
+            </p>
+
+            <button type="button" id="fechar-sucesso">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>
+            Obrigado por fazer parte da nossa história.
+        </p>
+
+        <strong>
+            Lara & João Gabriel
+        </strong>
+
+        <span>
+            06.02.2027
+        </span>
+    </footer>
+
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
