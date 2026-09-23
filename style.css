@@ -224,14 +224,40 @@ body {
 ========================= */
 
 .presentes-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 30px;
+    display: block;
 }
 
+/* =========================
+   CATEGORIAS DOS PRESENTES
+========================= */
+
+.categoria-presentes {
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+.categoria-presentes:last-child {
+    margin-bottom: 0;
+}
+
+.categoria-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+
+    color: #a78b5b;
+
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #ddd5c7;
+}
+
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
 
 /* =========================
    CARD DO PRESENTE
@@ -526,7 +552,7 @@ footer span {
 
 @media (max-width: 900px) {
 
-    .presentes-grid {
+    .categoria-grid {
         grid-template-columns:
             repeat(2, 1fr);
     }
@@ -564,8 +590,17 @@ footer span {
         padding: 70px 15px;
     }
 
-    .presentes-grid {
+    .categoria-grid {
         grid-template-columns: 1fr;
+    }
+
+    .categoria-titulo {
+        font-size: 31px;
+        margin-bottom: 22px;
+    }
+
+    .categoria-presentes {
+        margin-bottom: 50px;
     }
 
     .section-header h2 {
@@ -839,4 +874,3 @@ footer span {
     letter-spacing: 2px;
     color: #a78b5b;
 }
-

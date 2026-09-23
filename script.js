@@ -5,10 +5,9 @@ import {
     getDocs,
     doc,
     getDoc,
-    setDoc,
+    runTransaction,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
 
 const presentesGrid = document.querySelector("#presentes-grid");
 const modalPresente = document.querySelector("#modal-presente");
@@ -25,6 +24,15 @@ let presenteAtual = null;
 
 let confirmandoPresente = false;
 
+const nomesCategorias = {
+    cozinha: "Cozinha",
+    quarto: "Quarto",
+    banheiro: "Banheiro",
+    sala: "Sala",
+    lavanderia: "Lavanderia",
+    outros: "Outros"
+};
+
 
 /* =========================
    CARREGAR PRESENTES
@@ -40,6 +48,7 @@ async function carregarPresentes() {
             collection(db, "presentes")
         );
 
+        const presentesPorCategoria = {};
         let totalPresentes = 0;
 
         for (const documento of snapshot.docs) {
@@ -51,33 +60,44 @@ async function carregarPresentes() {
                 continue;
             }
 
+            // Quantidade total do presente
+            const quantidade =
+                Number(presente.quantidade) || 1;
 
-            const reservaRef = doc(
-                db,
-                "reservas",
-                documento.id
-            );
+            // Quantas unidades já foram reservadas
+            const quantidadeReservada =
+                Number(presente.quantidadeReservada) || 0;
 
-            const reservaSnapshot =
-                await getDoc(reservaRef);
+            // Quantas unidades ainda podem ser escolhidas
+            const quantidadeDisponivel =
+                Math.max(
+                    quantidade - quantidadeReservada,
+                    0
+                );
 
-
-            // Agora NÃO escondemos mais o presente.
-            // Apenas verificamos se ele está reservado.
+            // Só fica totalmente reservado
+            // quando não houver mais unidades
             const reservado =
-                reservaSnapshot.exists();
+                quantidadeDisponivel <= 0;
 
+            // Presentes antigos sem categoria
+            // ficam em "Outros"
+            const categoria =
+                presente.categoria || "outros";
 
-            criarCardPresente(
-                documento.id,
-                presente,
-                reservado
-            );
+            if (!presentesPorCategoria[categoria]) {
+                presentesPorCategoria[categoria] = [];
+            }
+
+            presentesPorCategoria[categoria].push({
+                id: documento.id,
+                presente: presente,
+                reservado: reservado,
+                quantidadeDisponivel: quantidadeDisponivel
+            });
 
             totalPresentes++;
-
         }
-
 
         // Caso não exista nenhum presente ativo
         if (totalPresentes === 0) {
@@ -96,6 +116,61 @@ async function carregarPresentes() {
                 </div>
             `;
 
+            return;
+        }
+
+        // Criar cada categoria
+        for (const categoria in presentesPorCategoria) {
+
+            const grupoCategoria =
+                document.createElement("section");
+
+            grupoCategoria.classList.add(
+                "categoria-presentes"
+            );
+
+            const tituloCategoria =
+                document.createElement("h2");
+
+            tituloCategoria.classList.add(
+                "categoria-titulo"
+            );
+
+            tituloCategoria.textContent =
+                nomesCategorias[categoria] ||
+                categoria;
+
+            const gridCategoria =
+                document.createElement("div");
+
+            gridCategoria.classList.add(
+                "categoria-grid"
+            );
+
+            grupoCategoria.appendChild(
+                tituloCategoria
+            );
+
+            grupoCategoria.appendChild(
+                gridCategoria
+            );
+
+            presentesGrid.appendChild(
+                grupoCategoria
+            );
+
+            presentesPorCategoria[categoria]
+                .forEach((item) => {
+
+                    criarCardPresente(
+                        item.id,
+                        item.presente,
+                        item.reservado,
+                        gridCategoria,
+                        item.quantidadeDisponivel
+                    );
+
+                });
         }
 
     } catch (erro) {
@@ -118,42 +193,43 @@ async function carregarPresentes() {
 
             </div>
         `;
-
     }
-
 }
-
 
 /* =========================
    CRIAR CARD DO PRESENTE
 ========================= */
 
-function criarCardPresente(id, presente, reservado) {
+function criarCardPresente(
+    id,
+    presente,
+    reservado,
+    container,
+    quantidadeDisponivel
+) {
 
     const card = document.createElement("article");
 
     card.classList.add("presente-card");
 
-
     // Adiciona uma classe extra caso
-    // o presente já esteja reservado
+    // todas as unidades estejam reservadas
     if (reservado) {
         card.classList.add("presente-reservado");
     }
 
+    // Quantidade total cadastrada
+    const quantidade =
+        Number(presente.quantidade) || 1;
 
     card.innerHTML = `
-
         <div class="presente-imagem">
-
             <img
                 src="assets/imagens/${presente.imagem}"
                 alt="${presente.nome}"
                 loading="lazy"
             >
-
         </div>
-
 
         <div class="presente-info">
 
@@ -161,20 +237,28 @@ function criarCardPresente(id, presente, reservado) {
                 ${presente.nome}
             </h3>
 
-
             ${reservado
             ? `
                         <p class="status-reservado">
                             ❤️ Presente já reservado
                         </p>
                     `
-            : `
-                        <p>
-                            Um presente especial para o novo lar.
-                        </p>
-                    `
+            : quantidade > 1
+                ? `
+                            <p>
+                                ${quantidadeDisponivel}
+                                ${quantidadeDisponivel === 1
+                    ? "unidade disponível"
+                    : "unidades disponíveis"
+                }
+                            </p>
+                        `
+                : `
+                            <p>
+                                Um presente especial para o novo lar.
+                            </p>
+                        `
         }
-
 
             <button
                 type="button"
@@ -182,21 +266,16 @@ function criarCardPresente(id, presente, reservado) {
                 data-id="${id}"
                 ${reservado ? "disabled" : ""}
             >
-
                 ${reservado
             ? "Presente reservado"
             : "Escolher este presente"
         }
-
             </button>
 
         </div>
-
     `;
 
-
-    presentesGrid.appendChild(card);
-
+    container.appendChild(card);
 }
 
 
@@ -381,122 +460,142 @@ formPresente.addEventListener(
 
         event.preventDefault();
 
-
         if (
             !presenteAtual ||
             confirmandoPresente
         ) {
-
             return;
-
         }
-
 
         const nome =
             nomeConvidado.value.trim();
 
-
         const telefone =
             telefoneConvidado.value.trim();
 
-
         if (!nome) {
-
             alert(
                 "Digite seu nome para confirmar o presente."
             );
 
             nomeConvidado.focus();
-
             return;
-
         }
-
 
         const botaoConfirmar =
             formPresente.querySelector(
                 'button[type="submit"]'
             );
 
-
         confirmandoPresente = true;
-
         botaoConfirmar.disabled = true;
-
         botaoConfirmar.textContent =
             "Confirmando...";
 
-
         try {
 
-            const referenciaReserva = doc(
+            // Referência do presente escolhido
+            const presenteRef = doc(
                 db,
-                "reservas",
+                "presentes",
                 presenteAtual.id
             );
 
-
-            /*
-             * Confere mais uma vez se alguém
-             * reservou enquanto o modal estava aberto.
-             */
-
-            const reservaExistente =
-                await getDoc(
-                    referenciaReserva
-                );
-
-
-            if (reservaExistente.exists()) {
-
-                alert(
-                    "Ops! Outro convidado acabou de escolher este presente."
-                );
-
-
-                fecharModalPresente();
-
-
-                await carregarPresentes();
-
-
-                return;
-
-            }
-
-
-            await setDoc(
-                referenciaReserva,
-                {
-
-                    presenteId:
-                        presenteAtual.id,
-
-                    presenteNome:
-                        presenteAtual.nome,
-
-                    convidado: {
-
-                        nome: nome,
-
-                        telefone: telefone
-
-                    },
-
-                    reservadoEm:
-                        serverTimestamp()
-
-                }
+            // Cria um ID diferente para cada reserva
+            const reservaRef = doc(
+                collection(db, "reservas")
             );
 
+            await runTransaction(
+                db,
+                async (transaction) => {
+
+                    const presenteSnapshot =
+                        await transaction.get(
+                            presenteRef
+                        );
+
+                    if (!presenteSnapshot.exists()) {
+                        throw new Error(
+                            "PRESENTE_NAO_ENCONTRADO"
+                        );
+                    }
+
+                    const dadosPresente =
+                        presenteSnapshot.data();
+
+                    const quantidade =
+                        Number(
+                            dadosPresente.quantidade
+                        ) || 1;
+
+                    const quantidadeReservada =
+                        Number(
+                            dadosPresente.quantidadeReservada
+                        ) || 0;
+
+                    // Verifica se ainda existe
+                    // alguma unidade disponível
+                    if (
+                        quantidadeReservada >= quantidade
+                    ) {
+                        throw new Error(
+                            "SEM_UNIDADES"
+                        );
+                    }
+
+                    const novaQuantidadeReservada =
+                        quantidadeReservada + 1;
+
+                    const totalmenteReservado =
+                        novaQuantidadeReservada >=
+                        quantidade;
+
+                    // Atualiza a quantidade do presente
+                    transaction.update(
+                        presenteRef,
+                        {
+                            quantidadeReservada:
+                                novaQuantidadeReservada,
+
+                            reservado:
+                                totalmenteReservado,
+
+                            disponivel:
+                                !totalmenteReservado
+                        }
+                    );
+
+                    // Salva a reserva do convidado
+                    transaction.set(
+                        reservaRef,
+                        {
+                            presenteId:
+                                presenteAtual.id,
+
+                            presenteNome:
+                                dadosPresente.nome,
+
+                            convidado: {
+                                nome: nome,
+                                telefone: telefone
+                            },
+
+                            reservadoEm:
+                                serverTimestamp()
+                        }
+                    );
+                }
+            );
 
             fecharModalPresente();
 
             await carregarPresentes();
 
             modalSucesso.classList.add("ativo");
-            document.body.style.overflow = "hidden";
 
+            document.body.style.overflow =
+                "hidden";
 
         } catch (erro) {
 
@@ -505,12 +604,36 @@ formPresente.addEventListener(
                 erro
             );
 
+            if (erro.message === "SEM_UNIDADES") {
 
-            alert(
-                "Não foi possível confirmar o presente. " +
-                "Tente novamente."
-            );
+                alert(
+                    "Ops! Outro convidado acabou de reservar a última unidade deste presente."
+                );
 
+                fecharModalPresente();
+
+                await carregarPresentes();
+
+            } else if (
+                erro.message ===
+                "PRESENTE_NAO_ENCONTRADO"
+            ) {
+
+                alert(
+                    "Este presente não está mais disponível."
+                );
+
+                fecharModalPresente();
+
+                await carregarPresentes();
+
+            } else {
+
+                alert(
+                    "Não foi possível confirmar o presente. " +
+                    "Tente novamente."
+                );
+            }
 
         } finally {
 
@@ -520,12 +643,9 @@ formPresente.addEventListener(
 
             botaoConfirmar.textContent =
                 "Confirmar presente";
-
         }
-
     }
 );
-
 /* =========================
     MODAL DE SUCESSO
 ========================= */
